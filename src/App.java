@@ -15,9 +15,70 @@ public class App {
         List<Pokemon> cartasCpu = new ArrayList<>();
         List<Pokemon> pokedex = new ArrayList<>() ;
         addCartasIniciais(pokedex);
+        int opcao=0;
 
-        System.out.print("Seja bem vindo ao nosso Mini Game cardPokemon!\nQual é o seu nome?");
-        jogador.setNomeJogador(teclado.nextLine());
+        System.out.println("Seja bem vindo ao nosso Mini Game cardPokemon!\nQual é o seu nome?");
+       try {
+            jogador.setNomeJogador(teclado.nextLine());
+            System.out.println(jogador.getNomeJogador()+ " Já há 15 pokemons armazenados Na pokedex.");
+
+            do{   
+            
+            System.out.println("Você deseja incluir algum outro Pokemon?");
+               System.out.println("1==>SIM\n2==>Visualizar os Pokemons cadastrados\nOUTRO NUMERO ==>Jogar");
+               System.out.println("Opção.:");
+               opcao=teclado.nextInt();
+
+           
+               if(opcao==1){
+                   System.out.println("Quantos Pokemons você que incluir na lista?");
+                   System.out.println("Obs.: As 15 cartas iniciais foram setadas de acordo com o site  https://www.pokemon.com/br/pokedex/. Esse site é uma boa dica para você listar o seus pokemons.");
+                  System.out.println("Opção.:");
+                   opcao=teclado.nextInt();
+                   int i=0;
+                   do{
+                      Pokemon pokemon = new Pokemon();
+
+                      System.out.print("Nome do Pokemon.: ");
+                      pokemon.setNomePokemon(teclado.next());
+
+                      System.out.print("Tipo do Pokemon.: ");
+                      pokemon.setTipoPokemon(teclado.next());
+
+                      System.out.print("Valor de Ataque.: ");
+                      pokemon.setAtaque(teclado.nextInt());
+
+                      System.out.print("Valor de Defesa.: ");
+                      pokemon.setDefesa(teclado.nextInt());
+
+                      System.out.print("Valor Do Ataue Especial.: ");
+                      pokemon.setSpecialAtaque(teclado.nextInt());
+
+                      System.out.print("Valor Da Velocidade.: ");
+                      pokemon.setVelocidade(teclado.nextInt());
+
+                      System.out.print("Valor Do HP");
+                      pokemon.setQtdVida(teclado.nextInt());
+
+                      pokedex.add(pokemon);
+                     i++;
+                   }while(i<opcao);
+                }    
+                else if(opcao==2){
+                    System.out.println("*---------------------------------*");
+                   for (Pokemon pokemon : pokedex) {
+                       System.out.println(pokemon.getNomePokemon()); 
+                     }
+                    
+                     System.out.println("*---------------------------------*");
+                } 
+
+            } while(opcao>0 && opcao<3);
+
+        }  
+        catch (Exception e) {
+            System.out.println("Digito invalido");
+        }
 
         System.out.println("Ok "+jogador.getNomeJogador()+" iremos sortear suas 5 cartas.");
 
@@ -33,7 +94,6 @@ public class App {
             cartasCpu.add(pokedex.get(numAleatorio));
         }
         
-        int opcao=0;
         int rounds=5;
         do{
             menu();
@@ -49,7 +109,6 @@ public class App {
                         carta.status();
                         System.out.println("--------------------------------");  
                     }
-                    opcao=teclado.nextInt();  
                     break;
                 case 2: 
                 
@@ -70,7 +129,9 @@ public class App {
                         System.out.println("Carta da CPU.: "+ cartasCpu.get(numAleatorio).getNomePokemon());
 
                         Disputa disputa =new Disputa(cartasJogador.get(opcao), cartasCpu.get(numAleatorio));
- 
+
+                        Thread.sleep(2000);
+
                         disputa.combate();
                         
                         cartasJogador.remove(opcao);
@@ -79,6 +140,20 @@ public class App {
                         rounds--;
 
                         if(rounds==0){
+
+                            System.out.println("Fim da Partida.");
+                            Thread.sleep(2000);
+                            System.out.println("Vamos Para o Resultado final!");
+                            System.out.println("3");
+                            Thread.sleep(1000);
+                            System.out.println("2");
+                            Thread.sleep(1000);
+                            System.out.println("1");
+                            Thread.sleep(1000);
+
+                            pularLinha();
+
+
                             if(disputa.getVitoriaDesafiador()>disputa.getVitoriaDesafiante()){
                                 System.out.println("PARABENS VOCÊ FOI O VENCEDOR DESTA PARTIDA!");
 
@@ -90,6 +165,10 @@ public class App {
                                 System.out.println("ESSA FOI DUREZA A PARTIDA TERMINOU EMPATADA.");
                             }
                             opcao=10;
+
+                            System.out.println(jogador.getNomeJogador() +"Você fez "+ disputa.getVitoriaDesafiador()+" Pontos entre as 5 Rodadas.");
+                            System.out.println("A CPU fez "+disputa.getVitoriaDesafiante());
+                            
                         }
 
                     }  
@@ -98,7 +177,16 @@ public class App {
                     }
 
                     break;
-                    
+                
+                    default:
+
+                     pularLinha();
+                      System.out.println("ESCOLHA UMA DAS OPÇÕES LISTADA NO MENU.");
+                      Thread.sleep(2000);
+                      pularLinha();
+                      pularLinha();
+
+                   
             }
 
         }
@@ -128,10 +216,9 @@ public class App {
     }
 
     public static void menu(){
-        System.out.println("MENU\n*---------------------------------------------*");
+        System.out.println("*-----------MENU-----------*");
         System.out.println("1==> verificar Suas cartas.");
         System.out.println("2==> Jogar carta");
-        System.out.println("4==> finalizar o jogo");
     }
     
     public static void pularLinha(){

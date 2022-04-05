@@ -2,7 +2,7 @@ public class Pokemon extends Stats {
 
    private String nomePokemon;
    private String tipoPokemon;
-   
+
 public String getNomePokemon() {
     return nomePokemon;
 }

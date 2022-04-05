@@ -202,13 +202,18 @@ public class Disputa extends Stats{
 
     }
 
-    public void combate(){
-
+    public void combate() throws InterruptedException {
+        
         combateDefesa();
+        Thread.sleep(2000);
         combateAtaque();
+        Thread.sleep(2000);
         combateSpecialAtaque();
+        Thread.sleep(2000);
         combateVelocidade();
+        Thread.sleep(2000);
         combateVida();
+        Thread.sleep(2000);
 
         if(getPontosDesafiador()>getPontosDesafiante()){
             setVitoriaDesafiador(this.vitoriaDesafiador=this.vitoriaDesafiador+1);
@@ -225,7 +230,7 @@ public class Disputa extends Stats{
             System.out.println("RODADA EMPATADA ");
         }
 
-
+        Thread.sleep(2000);
 
     }
 
